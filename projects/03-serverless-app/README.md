@@ -49,3 +49,11 @@ User → API Gateway → AWS Lambda → DynamoDB
 ## What I Learned
 
 This project strengthened my understanding of serverless computing on AWS. I learned how API Gateway, Lambda, DynamoDB, IAM, and CloudWatch can work together to create a scalable application without managing traditional servers.
+
+## Deployment
+
+This project can be deployed with the AWS SAM CLI.
+
+```bash
+sam build
+sam deploy --guided
