@@ -3,6 +3,9 @@
 ## Project Summary
 
 Designed a highly available AWS web architecture intended to remain available if a single compute instance or Availability Zone experiences a failure.
+## Architecture Diagram
+
+![Highly Available AWS Web Architecture](diagram.jpg)
 
 ## Architecture
 
