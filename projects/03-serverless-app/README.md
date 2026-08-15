@@ -3,6 +3,9 @@
 ## Project Summary
 
 Designed a serverless application architecture on AWS using managed services. The project demonstrates how an application can process requests and store data without managing traditional servers.
+## Architecture Diagram
+
+![AWS Serverless Application Architecture](diagram3.jpg)
 
 ## Architecture
 
