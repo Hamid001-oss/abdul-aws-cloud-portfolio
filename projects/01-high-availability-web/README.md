@@ -47,3 +47,55 @@ Internet → Application Load Balancer → EC2 Auto Scaling Group → Multiple A
 ## What I Learned
 
 This project strengthened my understanding of designing resilient AWS environments. I learned how Application Load Balancers, Auto Scaling, EC2, multiple Availability Zones, security groups, and monitoring services can work together to improve application availability and reliability.
+## Infrastructure Implementation
+
+This project includes AWS CloudFormation templates that demonstrate the infrastructure behind the highly available web architecture.
+
+### Core Infrastructure
+
+The `template.yaml` template defines:
+
+- Amazon VPC
+- Two Availability Zones
+- Public subnets
+- Internet Gateway
+- Application Load Balancer
+- EC2 Launch Template
+- Auto Scaling Group
+- Security Groups
+- Apache web server installation
+
+### Monitoring & Auto Scaling
+
+The `scaling-policy.yaml` template demonstrates:
+
+- Target-tracking Auto Scaling
+- Average CPU utilization target of 60%
+- CloudWatch CPU monitoring
+- High CPU alarm at 80%
+- Amazon SNS notification integration
+
+## Architecture Flow
+
+```text
+Internet
+   ↓
+Application Load Balancer
+   ↓
+Auto Scaling Group
+   ↓
+EC2 Instances
+ ↙          ↘
+AZ 1        AZ 2
+```
+
+## Project Files
+
+- `template.yaml` — Core AWS infrastructure
+- `scaling-policy.yaml` — Auto Scaling and CloudWatch configuration
+- `diagram.jpg` — Architecture diagram
+- `README.md` — Project documentation
+
+## Deployment Status
+
+The CloudFormation templates provide a portfolio implementation of this architecture. The AWS resources should be deployed and tested before this project is described as a completed production deployment.
