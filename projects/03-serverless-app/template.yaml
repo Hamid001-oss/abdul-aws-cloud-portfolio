@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless portfolio application using API Gateway, Lambda, and DynamoDB
+
+Resources:
+
+  PortfolioTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: portfolio-app
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  PortfolioFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: portfolio-serverless-function
+      Runtime: python3.12
+      Handler: lambda_function.lambda_handler
+      CodeUri: .
+      MemorySize: 128
+      Timeout: 10
+
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref PortfolioTable
+
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PortfolioTable
+
+      Events:
+        PortfolioApi:
+          Type: Api
+          Properties:
+            Path: /portfolio
+            Method: get
+
+Outputs:
+
+  ApiEndpoint:
+    Description: API Gateway endpoint
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/portfolio"
+
+  DynamoDBTable:
+    Description: DynamoDB table name
+    Value: !Ref PortfolioTable
+
+  LambdaFunction:
+    Description: Lambda function ARN
+    Value: !GetAtt PortfolioFunction.Arn
