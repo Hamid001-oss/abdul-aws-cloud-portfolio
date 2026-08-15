@@ -3,6 +3,9 @@
 ## Project Summary
 
 Designed a containerized application deployment architecture using Docker and Amazon Elastic Container Service (ECS). This project demonstrates how applications can be packaged into Docker containers and deployed using AWS container services.
+## Architecture Diagram
+
+![Docker Container Deployment on Amazon ECS](diagram4.jpg)
 
 ## Architecture
 
