@@ -62,3 +62,47 @@ Application Code → Docker Image → Amazon ECR → Amazon ECS → Application 
 ## What I Learned
 
 This project strengthened my understanding of containers and cloud-based application deployment. I learned how Docker
+## Container Deployment
+
+### Build the Docker Image
+
+```bash
+docker build -t aws-ecs-portfolio .
+```
+
+### Run Locally
+
+```bash
+docker run -p 8080:8080 aws-ecs-portfolio
+```
+
+Open:
+
+`http://localhost:8080`
+
+Health check endpoint:
+
+`http://localhost:8080/health`
+
+### Amazon ECR & ECS
+
+For an AWS deployment, the container image can be:
+
+1. Built with Docker.
+2. Tagged for an Amazon ECR repository.
+3. Pushed to Amazon ECR.
+4. Referenced by the ECS task definition.
+5. Run as an Amazon ECS Fargate service.
+
+## Project Files
+
+- `app.py` — Flask web application
+- `requirements.txt` — Python dependencies
+- `Dockerfile` — Container image definition
+- `.dockerignore` — Files excluded from the Docker build
+- `ecs-task-definition.json` — Amazon ECS Fargate task definition
+- `diagram4.jpg` — Architecture diagram
+
+## Security Note
+
+AWS credentials and other secrets should never be committed to this repository. Deployment credentials should be managed securely using IAM roles, GitHub Secrets, or AWS-supported identity federation.
