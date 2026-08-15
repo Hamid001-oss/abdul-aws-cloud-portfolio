@@ -1,0 +1,34 @@
+name: Test Application
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Application Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r projects/04-ecs-docker/requirements.txt
+
+      - name: Validate Python syntax
+        run: |
+          python -m py_compile projects/04-ecs-docker/app.py
+
+      - name: Test Docker build
+        run: |
+          docker build -t aws-ecs-portfolio:test projects/04-ecs-docker
