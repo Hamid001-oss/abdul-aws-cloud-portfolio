@@ -3,6 +3,9 @@
 ## Project Summary
 
 Designed an AWS monitoring and security architecture to demonstrate how cloud resources can be monitored, audited, and protected using AWS security and observability services.
+## Architecture Diagram
+
+![AWS Monitoring & Security Architecture](diagram6.jpg)
 
 ## Architecture
 
