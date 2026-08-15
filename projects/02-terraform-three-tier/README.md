@@ -3,6 +3,7 @@
 ## Project Summary
 
 Designed a three-tier AWS architecture using Terraform Infrastructure as Code (IaC). The goal of this project is to demonstrate how cloud infrastructure can be defined, deployed, and managed through reusable Terraform configuration.
+![Terraform Three-Tier AWS Architecture](diagram2.jpg)
 
 ## Architecture
 
