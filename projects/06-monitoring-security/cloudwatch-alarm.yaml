@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudWatch monitoring alarm for AWS portfolio
+
+Parameters:
+
+  InstanceId:
+    Type: AWS::EC2::Instance::Id
+    Description: EC2 instance to monitor
+
+  SNSTopicArn:
+    Type: String
+    Description: SNS topic ARN used for alarm notifications
+
+Resources:
+
+  HighCPUAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: portfolio-high-cpu-alarm
+      AlarmDescription: Sends an alert when EC2 CPU utilization exceeds 80 percent
+      Namespace: AWS/EC2
+      MetricName: CPUUtilization
+
+      Dimensions:
+        - Name: InstanceId
+          Value: !Ref InstanceId
+
+      Statistic: Average
+      Period: 300
+      EvaluationPeriods: 2
+      DatapointsToAlarm: 2
+      Threshold: 80
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+
+      AlarmActions:
+        - !Ref SNSTopicArn
+
+      OKActions:
+        - !Ref SNSTopicArn
+
+Outputs:
+
+  CloudWatchAlarmName:
+    Description: Name of the CloudWatch CPU alarm
+    Value: !Ref HighCPUAlarm
