@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Auto Scaling and CloudWatch configuration for the highly available web portfolio project
+
+Parameters:
+
+  AutoScalingGroupName:
+    Type: String
+    Description: Name of the existing Auto Scaling group
+
+  SNSTopicArn:
+    Type: String
+    Description: SNS topic ARN used for notifications
+
+Resources:
+
+  CPUScalingPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      AutoScalingGroupName: !Ref AutoScalingGroupName
+      PolicyType: TargetTrackingScaling
+      TargetTrackingConfiguration:
+        PredefinedMetricSpecification:
+          PredefinedMetricType: ASGAverageCPUUtilization
+        TargetValue: 60.0
+
+  HighCPUAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: portfolio-web-high-cpu
+      AlarmDescription: Alert when average Auto Scaling group CPU exceeds 80 percent
+      Namespace: AWS/EC2
+      MetricName: CPUUtilization
+      Statistic: Average
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 80
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+
+      Dimensions:
+        - Name: AutoScalingGroupName
+          Value: !Ref AutoScalingGroupName
+
+      AlarmActions:
+        - !Ref SNSTopicArn
+
+Outputs:
+
+  ScalingPolicyARN:
+    Description: Target tracking Auto Scaling policy ARN
+    Value: !Ref CPUScalingPolicy
+
+  HighCPUAlarmName:
+    Description: CloudWatch alarm name
+    Value: !Ref HighCPUAlarm
