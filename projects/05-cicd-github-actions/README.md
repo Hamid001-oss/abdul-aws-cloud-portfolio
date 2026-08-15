@@ -3,6 +3,9 @@
 ## Project Summary
 
 Designed a Continuous Integration and Continuous Deployment (CI/CD) workflow using GitHub Actions. This project demonstrates how application changes can be automatically tested, built, and prepared for deployment whenever code is pushed to a GitHub repository.
+## Architecture Diagram
+
+![CI/CD Pipeline with GitHub Actions](diagram5.jpg)
 
 ## Architecture
 
